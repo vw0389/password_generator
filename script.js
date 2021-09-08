@@ -1,18 +1,27 @@
 // Assignment code here
 
-var length = parseInt(prompt("Please enter a password length between 8 and 128 characters.", "16"));
-var lowercase = confirm("Would you like lowercase alphabet characters?");
-var uppercase = confirm("Would you like uppercase alphabet characters?");;
-var numeric = confirm("Would you like numeric characters");
-var special = confirm("Would you like special characters");
-if (!validateInput()) {
-    alert("Error occured. Aborting");
-    throw new Error("Something went badly wrong!");
-} else {
-    generatePassword();
+
+function getInput() {
+    var length = parseInt(prompt("Please enter a password length between 8 and 128 characters.", "16"));
+    var lowercase = confirm("Would you like lowercase alphabet characters?");
+    var uppercase = confirm("Would you like uppercase alphabet characters?");;
+    var numeric = confirm("Would you like numeric characters");
+    var special = confirm("Would you like special characters");
+    if (!validateInput(length, lowercase, uppercase, numeric, special)) {
+        alert("Error occured. Aborting");
+        throw new Error("Something went badly wrong!");
+    } else {
+        var returning = [];
+        returning.push(length);
+        returning.push(lowercase);
+        returning.push(uppercase);
+        returning.push(numeric);
+        returning.push(special);
+        return returning;
+    }
 }
 
-function validateInput() {
+function validateInput(length, lowercase, uppercase, numeric, special) {
     if (length === null || isNaN(length)) {
         alert("Please enter a password length");
         return false;
@@ -34,6 +43,7 @@ function validateInput() {
 }
 
 function generatePassword() {
+    var arrayInputs = getInput();
     let canidates = [];
     if (lowercase || uppercase) {
         let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
