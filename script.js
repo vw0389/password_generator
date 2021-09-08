@@ -1,6 +1,6 @@
 // Assignment code here
+
 var length = parseInt(prompt("Please enter a password length between 8 and 128 characters.", "16"));
-console.log(length);
 var lowercase = confirm("Would you like lowercase alphabet characters?");
 var uppercase = confirm("Would you like uppercase alphabet characters?");;
 var numeric = confirm("Would you like numeric characters");
@@ -9,7 +9,7 @@ if (!validateInput()) {
     alert("Error occured. Aborting");
     throw new Error("Something went badly wrong!");
 } else {
-    generate();
+    generatePassword();
 }
 
 function validateInput() {
@@ -33,7 +33,7 @@ function validateInput() {
     return true;
 }
 
-function generate() {
+function generatePassword() {
     let canidates = [];
     if (lowercase || uppercase) {
         let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
@@ -60,9 +60,12 @@ function generate() {
             canidates.push(specialCharacters[i]);
         }
     }
-    console.log(canidates.length);
-    console.log(canidates);
-
+    var password = ""
+    for (let i = 0; i < length; i++) {
+        let newChar = canidates[Math.floor(Math.random() * canidates.length)];
+        password = password + newChar;
+    }
+    return password;
 }
 
 
