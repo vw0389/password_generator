@@ -7,18 +7,23 @@ function getInput() {
     var uppercase = confirm("Would you like uppercase alphabet characters?");;
     var numeric = confirm("Would you like numeric characters");
     var special = confirm("Would you like special characters");
-    if (!validateInput(length, lowercase, uppercase, numeric, special)) {
-        alert("Error occured. Aborting");
-        throw new Error("Something went badly wrong!");
-    } else {
-        var returning = [];
-        returning.push(length);
-        returning.push(lowercase);
-        returning.push(uppercase);
-        returning.push(numeric);
-        returning.push(special);
-        return returning;
+    try {
+        if (!validateInput(length, lowercase, uppercase, numeric, special)) {
+            alert("Error occured. Aborting");
+            throw new Error("Something went badly wrong!");
+        } else {
+            var returning = [];
+            returning.push(length);
+            returning.push(lowercase);
+            returning.push(uppercase);
+            returning.push(numeric);
+            returning.push(special);
+            return returning;
+        }
+    } catch {
+        return -1;
     }
+
 }
 
 function validateInput(length, lowercase, uppercase, numeric, special) {
@@ -44,6 +49,14 @@ function validateInput(length, lowercase, uppercase, numeric, special) {
 
 function generatePassword() {
     var arrayInputs = getInput();
+    if (arrayInputs === -1) {
+        return "Invalid input!";
+    }
+    let length = arrayInputs[0];
+    let lowercase = arrayInputs[1];
+    let uppercase = arrayInputs[2];
+    let numeric = arrayInputs[3];
+    let special = arrayInputs[4];
     let canidates = [];
     if (lowercase || uppercase) {
         let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
