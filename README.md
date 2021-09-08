@@ -1,5 +1,7 @@
 # Password Generator
 Generate a random password based on criteria entered by the user.  
+
+![Alt text](./pwgnr.png)
 ## User Story
 AS AN employee with access to sensitive data
 
