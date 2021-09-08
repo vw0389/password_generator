@@ -1,5 +1,6 @@
 // Assignment code here
-var length = prompt("Please enter a password length between 8 and 128 characters.", "16");
+var length = parseInt(prompt("Please enter a password length between 8 and 128 characters.", "16"));
+console.log(length);
 var lowercase = confirm("Would you like lowercase alphabet characters?");
 var uppercase = confirm("Would you like uppercase alphabet characters?");;
 var numeric = confirm("Would you like numeric characters");
@@ -7,16 +8,24 @@ var special = confirm("Would you like special characters");
 if (!validateInput()) {
     alert("Error occured. Aborting");
     throw new Error("Something went badly wrong!");
+} else {
+    generate();
 }
 
 function validateInput() {
+    if (length === null || isNaN(length)) {
+        alert("Please enter a password length");
+        return false;
+    }
     if (length < 8) {
         alert("Length of the password is too short");
         return false;
-    } else if (length > 128) {
+    }
+    if (length > 128) {
         alert("Length of the password is too long");
         return false;
     }
+
     if (!lowercase && !uppercase && !numeric && !special) {
         alert("There is no characterset to work with!");
         return false;
@@ -27,20 +36,32 @@ function validateInput() {
 function generate() {
     let canidates = [];
     if (lowercase || uppercase) {
-        let alphabetLower = 'abcdefghijklmnopqrstuvwxyz'.split('');
+        let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
         if (lowercase) {
-            canidates = [...alphabetLower, ...canidates];
+            for (let i = 0; i < alphabet.length; i++) {
+                canidates.push(alphabet[i]);
+            }
         }
         if (uppercase) {
+            for (let i = 0; i < alphabet.length; i++) {
+                canidates.push(alphabet[i].toUpperCase());
+            }
 
         }
     }
     if (numeric) {
-
+        for (let i = 0; i < 10; i++) {
+            canidates.push(i);
+        }
     }
     if (special) {
-
+        let specialCharacters = " \!\"\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\\\]\^\_\`\{\|\}\~".split('');
+        for (let i = 0; i < specialCharacters.length; i++) {
+            canidates.push(specialCharacters[i]);
+        }
     }
+    console.log(canidates.length);
+    console.log(canidates);
 
 }
 
